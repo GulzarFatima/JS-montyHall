@@ -3,47 +3,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Monty Hall Problem</title>
+    <title>The MontyHall Problem</title>
 </head>
 <body>
-    <h1>The Monty Hall Problem</h1>
+    <h1>The MontyHall Problem</h1>
 
     <script>
-        // Initialize counters for stay and switch choices
         var stayCount = 0;
         var switchCount = 0;
 
-        // Run the simulation for 10,000 rounds
         for (var i = 0; i < 10000; i++) {
 
-            // Randomly assign the car to one of the three doors
-            var carPosition = Math.floor(Math.random() * 3) + 1;
+            var carPosition = Math.floor(Math.random() * 3) + 1; // Random car position
+            var contestantChoice = Math.floor(Math.random() * 3) + 1; // Contestant's initial choice
 
-            // The contestant makes a random choice
-            var contestantChoice = Math.floor(Math.random() * 3) + 1;
-
-            // The host removes a door that neither has the car nor was chosen by the contestant
+            // Host removes a door
             var removedDoor;
             do {
                 removedDoor = Math.floor(Math.random() * 3) + 1;
             } while (removedDoor === carPosition || removedDoor === contestantChoice);
 
-            // Determine whether the contestant should stay or switch
+            // Output round details
+            document.write("The Car is in position: " + carPosition + "<br>");
+            document.write("The contestant chose door: " + contestantChoice + "<br>");
+            document.write("The host left door: " + removedDoor + "<br>");
+
+            // Determine if the contestant should stay or switch
             if (contestantChoice === carPosition) {
-                stayCount++; // The contestant wins by staying
+                stayCount++;
+                document.write("<p style='color: blue;'>The contestant should stay!<br></p>");
             } else {
-                switchCount++; // The contestant wins by switching
+                switchCount++;
+                document.write("<p style='color: red;'>The contestant should switch!<br></p>");
             }
+
+            document.write("<br>");
         }
 
-        // Calculate the percentages of staying and switching
         var totalRounds = stayCount + switchCount;
         var stayPercentage = ((stayCount / totalRounds) * 100).toFixed(2);
         var switchPercentage = ((switchCount / totalRounds) * 100).toFixed(2);
 
-        // Output the results
-        document.write("<h2 style='color: green;'>Stay: " + stayPercentage + "%</h2>");
-        document.write("<h2 style='color: red;'>Switch: " + switchPercentage + "%</h2>");
+        // Display final percentages
+        document.write("<h2 style='color: green;'>Stay percentage: " + stayPercentage + "%</h2>");
+        document.write("<h2 style='color: red;'>Switch percentage: " + switchPercentage + "%</h2>");
     </script>
 </body>
 </html>
